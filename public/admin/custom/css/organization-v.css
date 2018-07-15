@@ -1,0 +1,74 @@
+.ibox-title{
+    border-top:none;
+    border-bottom:1px solid #ddd;
+    background:#f6f6f6;
+    padding:0px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+.ibox-title h5{
+    font-size:13px;
+    font-weight:400;
+    color:#000;
+    margin-left:15px;
+}
+.ibox-title  .ibox-tools button,.ibox-title  .ibox-tools a{
+    width:75px;
+    margin-right:13px;
+    margin-bottom:0px;
+    border-radius:5px;
+    color:#676a6c;
+}
+.ibox-tools button:last-child,.ibox-tools a:last-child{
+    margin-right:15px;
+}
+.ibox{
+    margin-bottom:0px;
+}
+.content{
+    padding-left:15px;
+    padding-right:15px;
+    width:100%;
+    height: calc(100% - 48px);
+    clear: both;
+}
+#container{
+    width: 24%;
+    float: left;
+    padding: 8px;
+    padding-top:15px;
+    height:100%;
+    border-right:1px solid #ddd;
+}
+.rightList{
+    width: 73%;
+    padding: 8px;
+    padding-top:55px;
+    float:right;
+    height:100%;
+    overflow:auto;
+}
+.table-bordered,.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
+    border-color:#a1a1a1;
+}
+.btnTitle{
+    font-size:14px;
+    background: #FAFAFB;
+    border: 1px solid #e7eaec;
+    border-left: 3px solid #1c84c6;
+    margin: 0px 0 10px 0;
+    padding: 10px;
+    border-radius: 2px;
+}
+.ibox-tools{
+    float:left;
+}
+#containerTree{
+    padding-top:6px;
+    height: calc( 100% - 73px);
+    overflow: auto;
+    border-top: 1px solid #ddd;
+    margin-top: 3px;
+}

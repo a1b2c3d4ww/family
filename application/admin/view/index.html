@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>中铁建BIM</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <link rel="shortcut icon" href="../favicon.ico"> <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/custom/css/index.css">
+    <link rel="stylesheet" href="/admin/custom/css/base.css">
+    <link href="/admin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/admin/custom/css/zt-model.css" rel="stylesheet">
+    <style>
+        .backIndex{
+            width: 75px;
+            height:34px;
+            line-height:34px;
+            color:#fff !important;
+
+        }
+        .navbar-header img{
+            width: 200px;
+            height: 50px;
+            margin: 5px 0 0 20px;
+        }
+      
+    </style>
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" id="left_menu" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                   
+                     <li>
+                        <a class="border-bottom"><i></i><span class="nav-label">系统信息管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                             <li><a class="J_menuItem" href="/admin/user">用户信息管理</a>
+                            </li>
+                             <li><a class="J_menuItem" href="/admin/cate">分类信息管理</a>
+                            </li>
+                             <li><a class="J_menuItem" href="/admin/first_file">查看构件信息</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a href="/">
+                            <img src="/home/images/logo.png" alt="" id="back">
+                        </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right" style="float:right;">
+                        <li class="">
+                        <a href="javascript:;" data-toggle="dropdown" class="btn btn-outline btn-default backIndex" style="width:unset;padding-left:5px !important;padding-right:5px !important;">
+                            <!--<i class="fa fa-user-md" style="font-size:20px;color:#fff;"></i>-->
+                            <img src="/admin/custom/images/user.png" alt="" style="vertical-align:top;">
+                            超级管理员>>{:session('homeUser.username')}
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="" data-target="#information" data-toggle="modal" href="javascript:;">个人信息</a>
+                            </li>
+                            <li>
+                                <a class="" data-target="#inforPassword" data-toggle="modal" href="javascript:;">修改密码</a>
+                            </li>
+
+                        </ul>
+                        </li>
+                        <li class="">
+                            <a href="/home/logout" class="btn btn-outline btn-default backIndex">
+                                注销退出
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%"  frameborder="0" seamless></iframe>
+            </div>
+
+        </div>
+        <!--右侧部分结束-->
+        <!--右侧边栏开始-->
+
+        <!--右侧边栏结束-->
+        <!--mini聊天窗口开始-->
+          <input type="hidden" name="url">
+<input type="hidden" name="index">
+        <!--mini聊天窗口结束-->
+    </div>
+    <!-- 增加个人信息模态框（Modal） -->
+<div class="modal fade" id="information" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top:90px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    个人信息
+                </h4>
+            </div>
+            <form class="form-horizontal" role="form" id="person" action="project_manage_action.php?action=modify_person" method="post">
+                <div class="form-group modal-body">
+                    <label for="firstname" class="col-sm-2 control-label">账户</label>
+                    <div class="col-sm-10" style="position:relative;">
+                        <div type="text" class="form-control" name="user_name">{$user['username']}</div>
+                        <span class="wrong_title"></span>
+                        <b style="position:absolute;top:0px;right:0px;height:34px;line-height:34px;color:#e4393c;font-size:22px;"></b>
+                    </div>
+                </div>
+                <div class="form-group modal-body">
+                    <label for="firstname" class="col-sm-2 control-label">真实姓名</label>
+                    <div class="col-sm-10" style="position:relative;">
+                        <input type="text" class="form-control" name="user_name" value="{$user['display_name']}">
+                        <span class="wrong_title"></span>
+                        <b style="position:absolute;top:0px;right:0px;height:34px;line-height:34px;color:#e4393c;font-size:22px;"></b>
+                    </div>
+                </div>
+                <div class="form-group modal-body">
+                    <label for="firstname" class="col-sm-2 control-label">公司</label>
+                    <div class="col-sm-10" style="position:relative;">
+                        <input type="text" class="form-control" name="user_email" value="{$user['com_name']}">
+                        <span class="wrong_title"></span>
+                        <b style="position:absolute;top:0px;right:0px;height:34px;line-height:34px;color:#e4393c;font-size:22px;"></b>
+                    </div>
+                </div>
+                <input type="hidden" name="company_id">
+                <div class="form-group modal-body">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10" style="position:relative;">
+
+                        <!-- <a type="button" class="btn btn-success" id="submit_person">
+                            提交
+                        </a>  -->
+                        <a type="button" class="btn btn-outline btn-default guanbi" data-dismiss="modal">关闭
+                        </a>
+                        <span class="wrong_title"></span>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 增加修改密码模态框（Modal） -->
+
+<div class="modal fade" id="inforPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top:90px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    修改密码
+                </h4>
+            </div>
+            <form class="form-horizontal" role="form" id="project" action="project_manage_action.php?action=add_project" method="post">
+                <div class="form-group modal-body">
+                    <label for="firstname" class="col-sm-2 control-label">旧密码</label>
+                    <div class="col-sm-10" style="position:relative;">
+                        <input type="password" class="form-control" placeholder="请输入密码" value="" maxlength="11" name="project_nam">
+                        <span id="oldpwd" class="wrong_title"></span>
+                        <b style="position:absolute;top:0px;right:0px;height:34px;line-height:34px;color:#e4393c;font-size:22px;"></b>
+                    </div>
+                </div>
+                <div class="form-group modal-body">
+                    <label for="firstname" class="col-sm-2 control-label">新密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" placeholder="请输入密码" name="project_loca" maxlength="32">
+                        <span id="newpwd" class="wrong_title"></span>
+                    </div>
+                </div>
+                <div class="form-group modal-body">
+                    <label for="firstname" class="col-sm-2 control-label">再次输入新密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" placeholder="请输入密码" name="project_locationr">
+                        <span id="renewpwd" class="wrong_title"></span>
+                    </div>
+                </div>
+                <input type="hidden" name="company_id">
+                <div class="form-group modal-body">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10" style="position:relative;">
+
+                        <a type="button" class="btn btn-success" id="submit_pro">
+                            提交
+                        </a>
+                        <a type="button" class="btn btn-outline btn-default guanbi" data-dismiss="modal">关闭
+                        </a>
+                        <span class="wrong_title"></span>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/admin/js/plugins/layer/layer.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/admin/js/hplus.js?v=4.1.0"></script>
+    <script type="text/javascript" src="/admin/js/contabs-m.js"></script>
+    <!-- Sweet alert -->
+    <script src="/admin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/admin/js/plugins/layer/layer.min.js"></script>
+    <!-- 第三方插件 -->
+    <script src="/admin/js/plugins/pace/pace.min.js"></script>
+    
+    <script type="text/javascript">
+        $("#back").click(function(event) {
+        
+             window.location.href="show_project_list.php";
+        });
+
+        var oldpwd = false;
+        var newpwd = false;
+        var renewpwd = false;
+
+        $('input[name=project_nam]').blur(function() {
+            //console.log("aaaaa");
+            $.ajax({
+                url:"/admin/check_opwd",
+                type:"POST",
+                data:{oldpwd:$('input[name=project_nam]').val()},
+                success:function(data) {
+                    console.log(data);
+                    if(data=='1') {
+                        console.log("bbbbb");
+                       $("input[name=project_nam]").css("border-color","#bac7d2");
+                        $("#oldpwd").html("");
+                        oldpwd = true;
+                    }else if(data=='2'){
+                        console.log("cccccc");
+                        $("input[name=project_nam]").css("border-color","#ed5565");
+                        $('#oldpwd').show();
+                        $("#oldpwd").html("旧密码错误");
+                        $("#oldpwd").css("color","#ed5565");
+                        oldpwd = false;
+                    }
+                }
+            })
+        })
+        $('input[name=project_loca]').focus(function(){
+            $('#newpwd').show();
+            $("#newpwd").html("新密码的长度最多32位");
+            //$("#newpwd").css("color","#ed5565");
+        })
+
+        $('input[name=project_loca]').blur(function() {
+            if($('input[name=project_loca]').val().length<6) {
+                 $("input[name=project_loca]").css("border-color","#ed5565");
+                 $('#newpwd').show();
+                 $("#newpwd").html("新密码的长度不能少于6");
+                 $("#newpwd").css("color","#ed5565");
+                 newpwd = false;
+            }else {
+          
+                    if($('input[name=project_loca]').val() == $('input[name=project_nam]').val()) {
+                        $("input[name=project_loca]").css("border-color","#ed5565");
+                        $('#newpwd').show();
+                        $("#newpwd").html("新密码不能与旧密码相同");
+                        $("#newpwd").css("color","#ed5565");
+                        newpwd = false;
+                       
+                    }else {
+                        $("input[name=project_loca]").css("border-color","#bac7d2");
+                        $("#newpwd").html("");
+                        newpwd = true;
+                    }
+                }
+        })
+
+        $('input[name=project_locationr]').blur(function(){
+            if($('input[name=project_locationr]').val()==$('input[name=project_loca]').val()) {
+                $("input[name=project_locationr]").css("border-color","#bac7d2");
+                $("#renewpwd").html("");
+                renewpwd = true;
+            }else {
+                $("input[name=project_locationr]").css("border-color","#ed5565");
+                $('#renewpwd').show();
+                $('#renewpwd').html("两次密码不一致");
+                $("#renewpwd").css("color","#ed5565");
+                renewpwd = false;
+            }
+        })
+
+        $('#submit_pro').click(function() {
+           if($("input[name=project_nam]").val()==""){
+                $("input[name=oldpwd]").css("border-color","#ed5565");
+                $('#oldpwd').show();
+                $("#oldpwd").html("旧密码不能为空");
+                $("#oldpwd").css("color","#ed5565");
+                oldpwd = false;
+            }else if($("input[name=project_loca]").val()==""){
+                $('#newpwd').show();
+                $("#newpwd").html("新密码不能为空");
+                $("#newpwd").css("color","#ed5565");
+                 newpwd = false;
+            }else if($("input[name=project_locationr]").val()==""){
+                $('#renewpwd').show();
+                $("#renewpwd").html("请再次输入新密码");
+                $("#renewpwd").css("color","#ed5565");
+                renewpwd = false;
+            }else if(newpwd&&renewpwd&&oldpwd){
+                $.ajax({
+                    type:'POST',
+                    url:'/admin/update_pwd',
+                    data:{pwd:$('input[name=project_locationr]').val()},
+                    success:function(data) {
+                        if(data==1) {
+                            window.location.reload();
+                        }else {
+                            layer.alert('修改失败!', {
+                            skin: 'layui-layer-lan' //样式类名
+                            ,closeBtn: 0
+                            });
+                        }
+                    }
+                })
+            }
+        })
+        var url=$('iframe').attr("src");//获取iframe的src值
+        var href=document.querySelectorAll('.J_menuItem');//获取所有链接a标签
+        var href_arr=[];//声明一个空数组 用于存a标签的链接
+        var arr=[];     //临时存储数组
+        for(var i=0;i<href.length;i++){
+            arr=href[i].href;
+            arr=arr.split('/');
+            href_arr.push(arr[arr.length-1]);
+        }
+        for(var j=0;j<href_arr.length;j++){
+             href_arr[j].index=j
+            if(href_arr[j]==url){
+                $('.J_menuItem').eq(j).parent().parent().parent().addClass('active');
+            }
+        }
+            var mywin=[];
+
+            
+    function moveTop(){
+        $url =$("input[name=url]").val();
+        if($url!=""){
+            mywin.push("window.open($url,'_blank')")
+            mywin[mywin.length-1]=window.open($url,'_blank','channelmode=yes');
+        }
+    }
+        $(document).ready(function () {
+           $("#side-menu>li:first-child>a").click();
+            $("#side-menu>li:first-child>ul>li:first-child>a").click();
+        });
+        $("#submit_person").click(function(){
+            if ($('input[name=user_name]').val()!=""){
+             $("#person").submit();     
+            }else{
+                 swal({
+                    title:"",
+                    text:"请填写真实姓名",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                   })
+            }
+           
+        })
+    </script>
+ 
+</body>
+
+</html>

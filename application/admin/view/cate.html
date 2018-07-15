@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/admin/css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/custom/css/company-v.css">
+    <link rel="stylesheet" href="/admin/custom/css/zt-model.css">
+    <link rel="stylesheet" href="/admin/custom/css/organization-v.css">
+    <link href="/admin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <style>
+        .btnTitle b{
+            font-size: 16px;
+            margin: 0 4px;
+        }
+
+    </style>
+</head>
+
+<body class="">
+    <div class=" animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<h5>项目信息管理 / 组织结构管理</h5>-->
+                        <h5>系统信息管理 /分类信息管理</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container" style="padding-top:55px;overflow:hidden;">
+        <div style="min-height:34px;">
+           
+
+            <a type="button" class="btn btn-outline btn-default" id="open_all" style="">
+                全部展开
+            </a>
+            <a type="button" class="btn btn-outline btn-default"  id="close_all">
+                全部闭合
+            </a>
+        </div>
+
+        <div id="containerTree">
+
+        </div>
+    </div>
+    <div class="rightList ibox-title" style="display:block;background:transparent;border:none;">
+       
+        <div class="btnTitle" id="tips">
+            请选择左侧<b>组织结构</b>进行操作
+        </div>
+        <div class="ibox-tools" style="float:right;">
+            <a type="button" class="btn btn-outline btn-default" style="width: 125px;display: none;"  id="add_primarycompany" data-toggle="modal" data-target="#companyModal">
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                添加子分类
+            </a>
+             <a type="button" class="btn btn-outline btn-default" style="width: 125px;display: none;" id="add_primarycompany" data-toggle="modal" data-target="#primarycompanyModal">
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                添加同级分类
+            </a>
+        </div>
+        <div class="ibox-tools" id="btnBox">
+          
+            <a type="button" class="btn btn-outline btn-default" style="width: 125px;display: none;" data-target="#companyDetailModal" data-toggle="modal" id="detail">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+                编辑
+            </a>
+            
+            <a type="button" class="btn btn-outline btn-default" style="width: 125px;display: none;" data-toggle="modal" id="delete" >
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                删除
+            </a>
+             
+        </div>
+    </div>
+    
+    <!-- 创建子分类 -->
+    <div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content new_company">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加子分类
+                    </h4>
+                </div>
+                <form class="form-horizontal" role="form" id="company" action="/admin/addchildcate" method="get">
+                    <div class="form-group modal-body">
+                        <label for="firstname" class="col-sm-2 control-label">分类名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control " name="ChildName" maxlength="25" value="">
+                            <span class="wrong_title"></span>
+                        </div>
+                    </div>
+                    <!--  父类的id -->
+                    <input type="hidden" name="ParentId" value="">
+                    <div class="form-group modal-body">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                        <input type="submit" class="btn btn-success tijoao" value="提交更改">
+                           <a type="button" class="btn btn-outline btn-default guanbi" data-dismiss="modal">关闭
+                    </a>
+                            <span class="wrong_title"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+     <!-- 创建同级分类 -->
+     <div class="modal fade" id="primarycompanyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content new_company">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加同级分类
+                    </h4>
+                </div>
+                <form class="form-horizontal" role="form" id="primarycompany" action="/admin/addsiblingcate" method="get">
+                    <div class="form-group modal-body">
+                        <label for="firstname" class="col-sm-2 control-label">分类名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control " name="siblingName" maxlength="25" value="">
+                            <span class="wrong_title"></span>
+                        </div>
+                    </div>
+                   
+                    <!--  总公司的id -->
+                    <input type="hidden" name="Id">
+                    <div class="form-group modal-body">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                           <input type="submit" class="btn btn-success tijoao" value="提交更改">
+                            <a type="button" class="btn btn-outline btn-default guanbi" data-dismiss="modal">关闭
+                    </a>
+                            <span class="wrong_title"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    
+    <!-- 公司详情的模态框（Modal） -->
+    <div class="modal fade" id="companyDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content new_company">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        分类详情
+                    </h4>
+                </div>
+                <form class="form-horizontal" role="form" id="company_detail" action="/admin/update" method="get">
+                    <div class="form-group modal-body">
+                        <label for="firstname" class="col-sm-2 control-label">分类名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="CategoryName" maxlength="25"  value="">
+                            <span class="wrong_title"></span>
+                            <input type="hidden" name="Id" value="">
+                        </div>
+                    </div>
+                   
+                    <!--  总公司的id -->
+                    <div class="form-group modal-body">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                             <input type="submit" class="btn btn-success tijoao" value="提交更改">
+                        
+                    </a>
+                            <a type="button" class="btn btn-outline btn-default guanbi" data-dismiss="modal">关闭
+                    </a>
+                            <span class="wrong_title"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+  
+
+ 
+    <input type="hidden" name="show_del" value="0">
+
+    <input type="hidden" name="show_del" value="1">
+
+  <button id="switch_person" data-toggle="modal" data-target="#movePerson" style="display: none;"></button>
+    <!--用于存放选中节点的信息-->
+    <input type="hidden" name="xtrue_id" value="">
+    <input type="hidden" name="xtype" value="">
+    <input type="hidden" name="xlevel" value="">
+    <input type="hidden" name="resetType">
+    <input type="hidden" name="resetId">
+    <input type="hidden" name="current_type">   
+    <input type="hidden" name="current_node_id">
+ 
+    <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- Peity -->
+    <script src="/admin/js/plugins/peity/jquery.peity.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/admin/js/content.js?v=1.0.0"></script>
+    <!-- iCheck -->
+    <script src="/admin/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Peity -->
+    <script src="/admin/js/demo/peity-demo.js"></script>
+    <!-- jsTree plugin javascript -->
+    <script type="text/javascript" src="/admin/js/plugins/jsTree/jstree.js"></script>
+      <script type="text/javascript" src="/admin/js/plugins/jsTree/jstree.min.js"></script>
+    <script type="text/javascript" src="/admin/custom/js/selfDefine.js"></script>
+    <script type="text/javascript" src="/admin/custom/js/organization.js"></script>
+    <!-- Sweet alert -->
+    <script src="/admin/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        $('#containerTree').jstree({
+            'core': {
+                "themes": { "stripes": true },
+                'data': {
+                    'url': '/admin/cate_json',
+                    'dataType': 'json',
+                },
+                'check_callback': true,
+            },
+            "checkbox": {
+                "keep_selected_style": false
+            },
+            "plugins": ["wholerow"]
+        });
+         $("#open_all").click(function(){
+            $("#containerTree").jstree("open_all");
+         })
+
+
+         $("#close_all").click(function(){
+            $("#containerTree").jstree("close_all");
+         })
+        $('#containerTree').on('changed.jstree',function(e,data){
+             node_id = data.node.id;
+             node_text = data.node.text;
+             $('input[name=CategoryName]').val(node_text);
+             $('input[name=Id]').val(node_id);
+             $('input[name=ParentId]').val(node_id);
+             // console.log($('input[name=CategoryName]'));
+             $("#tips").html("您当前点击的是<b>"+node_text+'</b>，您可以进行如下操作');
+             $('.btn-outline').show(); 
+              $('#delete').click(function(){
+                     swal({
+                        title: "",
+                        text: "子类也会一并删除，请谨慎操作！",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "删除",
+                        closeOnConfirm: true
+                    }, function () {   
+                          $.ajax({
+                url:'/admin/delete/'+node_id,
+                type:"get",
+                success:function(data){
+                   if (data==1){
+                    window.location.reload();
+                   }else{
+                    window.location.reload();
+                   }
+                }
+            })
+           });
+        })
+
+        })
+        var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
+            regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+        var PASS ;
+        $(document).on('click','.tijoao',function(){
+
+            var name = $(this).parent().parent().parent().find("input[type='text']").val();
+            var tjiao = $(this);
+            if(name){
+                if(regEn.test(name) || regCn.test(name)){
+                    $(this).parent().parent().parent().find("span:first").text('类名不能包含特殊字符').css('color','#ed5565');
+                     return false;
+                }else{
+                    $.ajax({
+                        url:'/admin/check_catename',
+                        type:'get',
+                        data:{'CategoryName':name,'Id':node_id},
+                        success:function(data){
+                            if(data==0){
+                                tjiao.parent().parent().parent().find("span:first").text('类名重复').css('color','#ed5565');
+                                PASS = false;
+                            }else{
+                                PASS = true;
+                            }
+                        },
+                        async:false, 
+                    })
+                    return PASS;
+                }
+            }else{
+                 $(this).parent().parent().parent().find("span:first").text('类名不能为空').css('color','#ed5565');
+                 return false;
+            }
+        })
+
+         
+   </script>
+    
+           
+
+</body>
+
+</html>

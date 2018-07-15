@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>BIM族库平台</title>   
+    <link href="/home/dist/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/home/iconfont/iconfont.css" rel="stylesheet" />
+    <link href="/home/css/base.css" rel="stylesheet" />
+    <link href="/home/css/common.css" rel="stylesheet"/>
+    <link href="/home/css/userCenter.css" rel="stylesheet"/>
+</head>
+<body style="min-width:1300px; width:100%;float:none;margin:0;padding:0;display:block;">
+    <!--头部-->
+    <div class="header">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">
+                <img alt="Brand" src="/home/images/logo.png">
+              </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                 {if session('homeUser.auth')}
+                <li><a href="/admin/index">后台管理</a></li>
+                {/if}
+                <li class="active"><a href="/">首页</a></li>
+                <li><a href="/home/userCenter">个人中心</a></li>
+
+                {if session('homeUser.username')}
+                <li><a href="javascript:;">{:session('homeUser.username')}</a></li>
+                <li><a href="/home/logout">退出</a></li>
+                {else}
+
+                <li><a href="/home/login">登录</a></li>
+                {/if}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+    </div>
+    <div class="main">
+
+        <input type="hidden" id="input-total-page-count" value="1" />
+        <input type="hidden" id="input-total-page-size" value="30" />
+        <input type="hidden" id="input-total-page-index" value="1" />
+        <input type="hidden" id="input-total-page-url" value="1" />
+        <div class="user-container">
+
+            <div class="user-header">
+                <div class="user-info-contrainter">
+                    <div class="user-header-contrainter">
+                       
+                        {if $data.upic}
+                        <img src="{$data.upic}"  class="user-header-image result" onerror="this.src='/home/images/chair.png'" style="width: 130px;height: 130px" />
+                        {else}
+                        <img src="/header/default.png" class="user-header-image result" style="width: 130px;height: 130px" />
+                        {/if}
+                       <form action="/home/upic" enctype="multipart/form-data" method="post" id="form1">
+                              <input type="button" class="btn btn-primary file" value="上传图片" onclick="f.click()" class="btn_mouseout"/>
+                               <p><input type="file" id="f" name="f" onchange="sc(this);" style="display:none"/></p>
+                               <div class="submit">
+                                   <button type="button" class="btn btn-primary quxiao" value="取消">取消</button>
+                                   <input type="submit" class="btn btn-primary dofile" value="提交" id="upic">
+                               </div>
+                               
+                         </form>
+                       
+                    </div>
+
+         
+
+
+                    <div class="user-header-info-contrainter">
+                        <p style="font-size:18px;margin-top:50px; font-weight:700"></p>
+
+                        <div style="width:100%;float:left;">
+                            <i class="iconfont icon-xingming" style="font-size:24px;float:left;" /></i>
+                            <span class="user-info-font">{$data.display_name}</span>
+                        </div>
+
+                        <div style="width:100%;float:left;margin-top:20px;">
+                            <i class="iconfont icon-dianhua" style="font-size:24px;float:left;" /></i>
+                            <span class="user-info-font">{$data.username}</span>
+                        </div>
+
+                        <div style="width:100%;float:left;margin-top:20px;">
+                            <i class="iconfont icon-ziyuan" style="font-size:24px;float:left;" /></i>
+                            <span class="user-info-font">{$com.com_name}</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div style="float:right;margin-top:-50px;margin-right:6%;">
+
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                  修改密码
+                </button>
+               
+                
+                <!-- 修改密码模态框 -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                        <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                      </div>
+                       <form action="/home/updatepwd" method="post">
+                      <div class="modal-body">
+                         <img src="/home/images/touxiang.png">
+                         <p>{$data.display_name}</p>
+                        
+                         <input type="text" name="oldpwd" placeholder="原密码：">
+                         <span></span>
+                         <input type="password" name="newpwd" placeholder="新密码：">
+                         <span></span>
+                         <input type="password" name="repwd" placeholder="再次输入：">
+                         <span></span>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-primary" id="update">确定</button>
+                        <button class="btn btn-default" data-dismiss="modal">取消</button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div> 
+
+            <div style="width:90%; display:block;margin:auto;float:none;">
+                <div class="user-nav">
+                    <div class="user-nav-btn user-nav-btn-active" id="btn-usercenter-download" data-url="2">下载记录</div>
+                </div>
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>缩略图</th>
+                            <th>名称</th>
+                            <th>类别</th>
+                            <th>格式</th>
+                            <th>下载时间</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                    
+                    
+
+                {if $file}
+                <tr>
+                {foreach $file as $k=>$v}
+                    <td>
+                        <img src="http://{$v['file']['image_url']}" style="width:50px;height:50px;">
+                    </td>
+                    <td>
+                        {$v['file']['filename']}
+                    </td>
+                    <td>
+                        {$v['file']['category']['CategoryName']}
+                    </td>
+                    <td>
+                        {$v['file']['version']}
+                    </td>
+                    <td>
+                        {:date('Y-m-d H:i:s',$v['download_time'])}
+                    </td>
+                </tr>
+
+               
+                {/foreach}
+                </tbody>
+               </table>
+                <!-- <div style="text-align: center;">{$page|raw}</div> -->
+                {else}
+                <!-- <div class="user-table" id="tbContentBody">
+                    <div style="width: 100%; height: 100px; line-height: 100px; color: #e0e0e0; font-size: 30px; text-align: center">
+                        没有更多数据....
+                    </div>
+                </div> -->
+                {/if}
+                
+            </div>
+        </div>
+
+
+        <div role="dialog" class="modal fade" id="divLoginModal" aria-hidden="true" data-backdrop="false" data-dismiss="modal" tabindex="999">
+ 
+
+           
+            <div class="login-body">
+                <div class="login-contrainer">
+                    <div class="login-close" id="btnCloseModal">
+                        &times;
+                    </div>
+
+                    <div class="login-left">
+                        <div class="login-content">
+
+                            <input type="text" class="login-input-account" maxlength="50" placeholder="UserName" />
+                        </div>
+                        <div class="login-content">
+
+                            <input type="password" class="login-input-password" maxlength="18" placeholder="Password" />
+                        </div>
+                    </div>
+                    <div class="login-right">
+                <span class="login-btn">
+                    Login in
+                </span>
+                        <div style="width:100%;float:left;opacity:0">
+                            <a class="login-center">申请帐号</a>
+                            <a class="login-center" style="margin-left:0;margin-right:10%;">忘记密码</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 底部-->
+    <div class="footer">
+        <p>中国中铁电气化局集团有限公司版权所有</p>
+        <p>京ICP备05033460号</p>
+        <p>地址：中国北京万寿路南口全家村一号，邮编：100036</p>
+        <p>电话:010-51842589(市电) 46560(路电)</p>
+    </div>
+
+    <!-- 回到顶部-->
+    <div class="gotop">
+        <a href="javascript:;">
+            <span></span>
+            <p>Top</p>
+        </a>
+    </div>
+<script src="/home/dist/jquery/jquery.js"></script>
+<script src="/home/iconfont/iconfont.js"></script>
+<script src="/home/dist/bootstrap/bootstrap.min.js"></script>
+<script src="/home/js/common.js"></script>
+<script src="/home/js/userCenter.js"></script>
+
+<script>
+function sc(){
+        var data = new FormData($('#form1')[0]); 
+        $.ajax({  
+            url: "/home/uppic", 
+            type: 'POST',  
+            data: data,  
+            dataType: 'JSON',  
+            cache: false,  
+            processData: false,  
+            contentType: false,
+            success:function(data){
+             if(data){
+                    $('.result').attr('src',data['f']);
+                }
+            },  
+        })
+    }
+</script>
+
+
+</body>
+</html>

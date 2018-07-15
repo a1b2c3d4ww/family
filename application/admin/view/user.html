@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/admin/css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/custom/css/user-v.css">
+    <link rel="stylesheet" href="/admin/custom/css/zt-model.css">
+    <link rel="stylesheet" href="/admin/custom/css/page.css"/>
+    <link href="/admin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <style type="text/css">
+         #list tr td span{
+            color: red;
+         }
+          #list tr td img{
+            width: 20px;
+          }
+         #containerTree {
+             padding-top: 6px;
+             height: calc( 100% - 73px);
+             overflow: auto;
+             border-top: 1px solid #ddd;
+             margin-top: 3px;
+         }
+         #container{
+             overflow:hidden;
+         }
+         input[name=search]{
+             vertical-align: middle;
+         }
+    </style>
+
+</head>
+
+<body class="">
+<div class=" animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>后台信息管理 /用户信息管理</h5>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<input type="hidden" name="is_select_job" value="0">
+<div class="content" style="overflow:hidden;">
+    
+    <div class="rightList">
+        <div class="ibox-tools"  style="float: right;">
+            <a type="button"  style="width:95px;margin-right:5px;float: left;"  class="btn btn-outline btn-default" id="del_user">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                批量删除
+            </a>
+            <form action="/admin/user" method="get" style="float: left;">
+                <input type="text" name="search" style="margin-right:10px;height:32px;padding:3px;" placeholder="请输入要检索的内容" {if $search}value="{$search}"{/if}>
+                <button class="btn btn-info" type="submit">搜索</button>
+            </form>
+        </div>
+        <div class="table-responsive" style="clear:both;">
+            <table class="table table-bordered table-hover  table-condensed">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"/></th>
+                        <th>编号</th>
+                        <th>账户</th>
+                        <th>真实姓名</th>
+                        <th>所属公司</th>
+                        <th>积分</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                {foreach $user as $k=>$v}
+                {if $v['auth'] != 1}
+                    <tr>
+                        <td><input name="user_id[]" type="checkbox" value="{$v['id']}" /></td>
+                        <td>{$num*10-10+$k+1}</td>
+                        <td>{$v['username']}</td>
+                        <td>{if $v['display_name']}{$v['display_name']}{else}未填写{/if}</td>
+                        <td>{$v['com_name']}</td>
+                        <td>{$v['point']}</td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-success btn-xs del_item">删除</a>
+                        </td>
+                    </tr>
+                {/if}
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align:center;">
+            {$page|raw}
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- 全局js -->
+<script src="/admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+<!-- Peity -->
+<script src="/admin/js/plugins/peity/jquery.peity.min.js"></script>
+<!-- 自定义js -->
+<script src="/admin/js/content.js?v=1.0.0"></script>
+<!-- iCheck -->
+<script src="/admin/js/plugins/iCheck/icheck.min.js"></script>
+<!-- Peity -->
+<script src="/admin/js/demo/peity-demo.js"></script>
+<!-- Sweet alert -->
+<script src="/admin/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="/admin/js/plugins/layer/layer.min.js"></script>
+
+
+<script>
+//ajax内部的操作---------------------------------------------
+//删除单个用户
+$("#list").on('click','.del_item',function(){
+    $tr = $(this).parent().parent();
+    user_id = $(this).parent().parent().children("td:first").children('input').val();
+    swal({
+                title: "",
+                text: "删除后用户信息将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: true
+            }, function () {   
+     $.ajax({
+          url:'/admin/del_user',
+          data:{id:user_id},
+          type:"POST",
+          success:function(data){
+           if (data==1){
+                $tr.remove();
+            } else {
+                layer.alert('删除失败!', {
+                  skin: 'layui-layer-lan' //样式类名
+                  ,closeBtn: 0
+                });
+            }
+          }
+    })
+});
+})
+
+
+//删除多个用户
+$("#del_user").click(function(){
+    var chk_val=[];
+   $("input[name='user_id[]']:checked").each(function(){
+    chk_val.push($(this).val());
+   })
+   if (chk_val.length==0){
+     swal({
+                title: "",
+                text: "请勾选要删除的人员！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: true
+            })
+   }else{
+    swal({
+                title: "",
+                text: "删除后用户信息将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: true
+            }, function () {   
+                  $.ajax({
+                    url:'/admin/del_user',
+                    data:{id:chk_val},
+                    type:"POST",
+                    success:function(data){
+                       if (data==1){
+                        window.location.reload();
+                       } else {
+                        layer.alert('删除失败!', {
+                          skin: 'layui-layer-lan' //样式类名
+                          ,closeBtn: 0
+                        });
+                       }
+                    }
+                })
+   });
+   }
+})
+
+  //分页样式隐藏
+  $('.disabled').hide();
+
+
+</script>
+
+</body>
+</html>

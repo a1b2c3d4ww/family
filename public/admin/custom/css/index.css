@@ -1,0 +1,113 @@
+body.fixed-sidebar .navbar-static-side{
+    padding-top:60px;
+}
+#page-wrapper{
+    margin:0px !important;
+}
+.navbar-static-top{
+    background: #3366cc;
+    z-index:9999;
+}
+
+.navbar-header{
+    width: auto;
+}
+.navbar-header img{
+    width:60px;
+    height:40px;
+    margin-left:20px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.u12{ background:url(../images/u12.png) no-repeat center;}
+.u14{ background:url(../images/u14.png) no-repeat center;}
+.u16{ background:url(../images/u16.png) no-repeat center;}
+.navbar-right span{
+    display:flex;
+    width:35px;
+    height:35px;
+    background:url(../images/u6.png);
+    justify-content: center;
+    align-items:center;
+}
+.navbar-right b{
+    display:block;
+    width:21px;
+    height:21px;
+    background-size:100%;
+}
+.navbar-right a{
+    margin-top:13px !important;
+    margin-bottom:12px !important;
+    margin-left:5px;
+    min-height:0 !important;
+    padding:0px !important;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+    background-color:#3366cc !important;
+    border-color:#fff !important;
+}
+#content-main{
+    margin-left:165px;
+}
+.navbar-static-side{
+    background:#f0f0f0;
+    border-right:1px solid #ddd;
+}
+.nav > li > a{
+    color:#000;
+    font-weight:400;
+}
+.nav > li > a>i{
+    color:#707070;
+}
+.nav > li.active {
+    border-left: 0px solid #3366cc;
+    background: #f0f0f0;
+}
+.nav > li.active > a{
+    color:#000;
+}
+#left_menu  .nav > li > a:hover,
+#left_menu  .nav > li > a:focus {
+    border-left: 4px solid #3366cc;
+    background-color: #c0dff3;
+    color: #3266cc;
+}
+#left_menu  .nav > li > a:hover i,
+#left_menu  .nav > li > a:focus i {
+
+
+    color: #3266cc;
+}
+.border-bottom {
+    border-bottom: 1px solid #d7d7d7 !important;
+}
+body.fixed-sidebar .navbar-static-side, body.canvas-menu .navbar-static-side{
+    width:180px;
+}
+.nav-header{
+    background:#f0f0f0;
+    text-align:center;
+    color:#000;
+    padding-bottom:20px;
+}
+.nav-header .text-muted,.font-bold {
+    color: #5e5e5e;
+}
+.img-circle {
+    border: 4px solid #fff;
+}
+.navbar-top-links .dropdown-messages{
+    width:160px;
+    right: -30px;
+    border-radius: 5px;
+    padding:0px;
+}
+.dropdown-menu > li > a{
+    text-align:center;
+    padding:10px !important;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+

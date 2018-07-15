@@ -1,0 +1,26 @@
+.form-control, .single-line{
+	width: 70%;
+}
+
+.control-code{
+	width: 200px;
+}
+
+.form-group label{
+	width: 60px;
+}
+.control-code .form-control{
+	width: 130px;
+}
+.control-label{
+	width: 140px;
+}
+.form-group .checkbox2{
+	line-height: 20px;
+}
+.m-t{
+	padding-bottom: 14px;
+}
+.control-label{
+	margin-left: 20px;
+}

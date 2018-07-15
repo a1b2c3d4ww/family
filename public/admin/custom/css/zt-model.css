@@ -1,0 +1,100 @@
+.modal-header{
+    background:#3366cc;
+    text-align:center;
+    color:#fff;
+}
+.close{
+    opacity:1;
+    color:#fff;
+}
+.form-group{
+    margin-bottom:0px;
+}
+.modal-body{
+    padding-top:0px;
+    padding-bottom:0px;
+}
+.form-horizontal{
+    padding-top:15px;
+}
+.wrong_title{
+    display:block;
+    height: 17px;
+    text-align: left;
+    font-size: 12px;
+    margin:2px 0px;
+    color:rgb(153,153,153);
+    padding-left:12px;
+}
+textarea{
+    resize: none;
+}
+.dashed-control{
+    border:1px dashed #ddd;
+    height:auto;
+}
+label{
+    font-weight:400;
+    color:#000;
+}
+.acl-control label{
+    width:48%;
+    padding-left:15px;
+    padding-right:15px;
+
+}
+.acl-control label input{
+    margin:0px;
+    margin-right:3px;
+    vertical-align:middle;
+}
+.modal-dialog .btn-success{
+    background-color:#3366cc;
+}
+.form-horizontal .btn-success,.form-horizontal .btn-default{
+    width:80px;
+    height:34px;
+}
+.form-horizontal input:focus,.form-horizontal textarea:focus,.form-horizontal select:focus{
+    border-color:#1c84c6 !important;
+}
+.form-horizontal input.userSearch{
+    margin-left: 10px;
+    height: 32px;
+    padding: 3px;
+}
+.form-horizontal input.userSearch:focus{
+    border-color:transparent !important;
+}
+#container,.rightList{
+    padding-top:55px !important;
+}
+.animated{
+    position:fixed;
+    top:0px;
+    width:100%;
+}
+.modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.navclick{
+    border-left: 4px solid #3366cc;
+    background-color: #c0dff3;
+    color: #3266cc;
+}
+#laydate_box{
+    top:34px !important;
+    left:15px !important;
+}
+.dateBox{
+     display:flex;
+     justify-content:space-between;
+     height:55px;
+ }
+.dateBox span{
+    display:none;
+}
+#hello,#hello1{
+    max-width:unset;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>BIM族库平台</title>
+    <link href="/home/dist/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/home/dist/swiper/swiper.min.css" rel="stylesheet"/>
+    <link href="/home/css/base.css" rel="stylesheet" />
+    <link href="/home/css/common.css" rel="stylesheet"/>
+    <link href="/home/css/index.css" rel="stylesheet"/>
+
+
+</head>
+<body>
+    <!--头部-->
+    <div class="header">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">
+                <img alt="Brand" src="/home/images/logo.png">
+              </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                {if session('homeUser.auth')}
+                <li><a href="/admin/index">后台管理</a></li>
+                {/if}
+                <li class="active"><a href="/">首页</a></li>
+                <li><a href="/home/userCenter">个人中心</a></li>
+                {if session('homeUser.username')}
+                <li><a href="javascript:;">{:session('homeUser.username')}</a></li>
+                <li><a href="/home/logout">退出</a></li>
+                {else}
+
+                <li><a href="/home/login">登录</a></li>
+                {/if}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+    </div>
+    <!-- 中间部分-->
+    <div class="main">
+
+        <div class="HeaderBg">
+            <h1>构件资源库</h1>
+            <h3>已录入 <span>{$num}</span> 个族文件</h3>
+            <input type="text" name="" value="{$num}" style="display: none;" id="zuNum"> 
+            <div class="Header-Search-Border">
+                <form action="/home/search" method="get">
+                <input class="Header-Search" id="searchFilterVal" name="filename" placeholder="请输入族文件名称..."/>
+                <button class="Btn-Header-Search" onclick="window.location.href='/home/search'"/>
+               </form>
+            </div>
+            <div style="top:56%;width:720px;height:80px;float:none;margin:auto;display:block;position:relative;" class="Head-Category"> 
+                {foreach $cates as $k=>$v}              
+                <a class="Header-Nav-Menu-Btn" href="#{$k}">
+                   {$v['CategoryName']}
+                </a>
+                {/foreach}
+            </div>
+        </div>
+        <input type="hidden" value="" id="familyCellCount"/>
+      
+        <div class="main-con">
+
+            <a style="margin-bottom:30px;display:inline;background:red;opacity:0">...</a>
+            {foreach $cates as $k=>$v}
+            <div class="cate-con clearfix">
+                <div class="cate-title">
+                    <div class="cate-more" style=" float:right;">
+                        <a href="/home/search/{$v.Id}" value="{$v.Id}" name="more">更多</a>
+                    </div>
+                    <h3><a name="{$k}"></a>{$v.CategoryName}专业族</h3>
+                        
+                    
+                </div>
+                <div class="cate-content">
+                   
+                    <div class="lunbo">
+                      
+                          <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {foreach $v.sub as $kk=>$vv}
+                                <div class="swiper-slide clearfix">
+                                  <a href="/home/search/{$vv.Id}">
+                                      <li class="Family-Content-Cell">
+                                          <div style="height: 160px; position: relative;text-align: center;">
+                                              <img src="/home/images/zhu.png"
+                                                   class="img-center-body"
+                                                   style="max-height: 150px; max-width: 150px; border-radius: 5px;"/>
+                                          </div>
+                                          <p class="Family-Name">
+                                              {$vv.CategoryName}
+
+                                          </p>
+                                      </li>
+                                  </a> 
+                                </div> 
+                              {/foreach} 
+                            </div>
+                      
+                    
+                             <!-- Add Arrows -->
+                            <div class="swiper-button-prev" aria-disabled="true"></div>
+                            <div class="swiper-button-next" aria-disabled="false"></div> 
+                          </div>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+           
+          <div>
+            
+        </div>
+
+    </div>
+
+    <!-- 底部-->
+    <div class="footer">
+        <p>中国中铁电气化局集团有限公司版权所有</p>
+        <p>京ICP备05033460号</p>
+        <p>地址：中国北京万寿路南口全家村一号，邮编：100036</p>
+        <p>电话:010-51842589(市电) 46560(路电)</p>
+    </div>
+
+    <!-- 回到顶部-->
+    <div class="gotop">
+        <a href="javascript:;">
+            <span></span>
+            <p>Top</p>
+        </a>
+    </div>
+
+</body>
+<script src="/home/dist/jquery/jquery.js"></script>
+<script src="/home/dist/bootstrap/bootstrap.min.js"></script>
+<script src="/home/dist/swiper/swiper.min.js"></script>
+<script src="/home/js/common.js"></script>
+<script src="/home/js/index.js"></script>
+<script type="text/javascript">
+  $('.more').on('click',function() {
+    var cate = $(this).val();
+     sessionStorage.setItem("cate",val);
+})
+</script>
+
+
+</html>

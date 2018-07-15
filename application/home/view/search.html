@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>BIM族库平台</title>
+    <link href="/home/dist/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/home/css/base.css" rel="stylesheet" />
+    <link href="/home/css/common.css" rel="stylesheet"/>
+    <link href="/home/css/search.css" rel="stylesheet"/>
+
+
+</head>
+
+<body>
+
+    <!--头部-->
+    <div class="header">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">
+                <img alt="Brand" src="/home/images/logo.png">
+              </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">首页</a></li>
+                <li><a href="/home/userCenter">个人中心</a></li>
+
+                {if session('homeUser.username')}
+                <li><a href="javascript:;">{:session('homeUser.username')}</a></li>
+                <li><a href="/home/logout">退出</a></li>
+                {else}
+
+                <li><a href="/home/login">登录</a></li>
+                {/if}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+    </div>
+    <div class="main">
+
+
+        <input type="hidden" value="1" id="search-page-index"/>
+        <input type="hidden" value="30" id="search-page-size"/>
+        <input type="hidden" value="245" id="search-total-count"/>
+        <input type="hidden" value="" id="search-row-count"/>
+        <!-- <input type="hidden" value="{$id}" id="search-total-count"/> -->
+        <!-- <div class="search-page"> -->
+
+            <div class="search-top">
+              {if !$id}
+                <div class="search-cate">
+                   
+                    <div class="search-title">专业分类:</div>
+                    <ul class="search-content">
+                        {foreach $cates as $k=>$v}
+                            <li class="search-header-btn parent list"  value="{$v.Id}">{$v.CategoryName}</li>                           
+                        
+                        {/foreach}
+                    </ul>
+                     </div>    
+                    {else}
+
+                  {$ids|raw}            
+                {/if}
+            </div>        
+            <div class="search-middle">
+                <div class="search-middle-btn search-middle-btn-active" data-orderby-val="1">下载量</div>
+                <div class="search-middle-btn" data-orderby-val="2">上传时间</div>
+                <div class="search-middle-btn" data-orderby-val="3">文件大小</div>
+
+                <div class="search-middle-filter">  
+                    <input type="text" id="search-page-filter" 
+                           class="search-input-key-content" name="filename" placeholder="搜索" value="{$search}" />
+                    <input type="submit" class="search-input-button" value="搜索" id="btnSearchByFilter" 
+                           />
+                </div>
+            </div>
+
+
+
+            <!-- 点击分类  列表展示 -->
+            <div class="search-bottom liebiao" id="search-body-contrainer">
+
+            </div>
+
+
+            <!-- 瀑布流 加载更多-->
+            <div class="pubu">
+                <button class="btn btn-primary" id="search-loadmore-btn">
+                    加载更多...
+                </button>
+            </div>
+        <!-- </div> -->
+
+    </div>
+
+    <!-- 底部-->
+    <div class="footer">
+        <p>中国中铁电气化局集团有限公司版权所有</p>
+        <p>京ICP备05033460号</p>
+        <p>地址：中国北京万寿路南口全家村一号，邮编：100036</p>
+        <p>电话:010-51842589(市电) 46560(路电)</p>
+    </div>
+
+    <!-- 回到顶部-->
+    <div class="gotop">
+        <a href="javascript:;">
+            <span></span>
+            <p>Top</p>
+        </a>
+    </div>
+</body>
+<script src="/home/dist/jquery/jquery.js"></script>
+<script src="/home/dist/bootstrap/bootstrap.min.js"></script>
+<script src="/home/dist/jquery.masonry.min.js"></script>
+<script src="/home/js/common.js"></script>
+<script src="/home/js/jquery.mousewheel.js"></script>
+<script src="/home/js/search.js"></script>
+
+
+
+</html>

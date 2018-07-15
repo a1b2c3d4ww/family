@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BIM族库平台</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="/home/dist/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/home/dist/sweetalert/sweetalert.min.css" rel="stylesheet">
+    <link href="/home/css/base.css" rel="stylesheet">
+    <link href="/home/css/register.css" rel="stylesheet">
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
+</head>
+
+<body class="signin">
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div class="ibox-content">
+        <div class="back">
+            <img src="/home/images/logo.png" alt="" style="">
+
+        </div>
+        <div>
+            <form class="form-horizontal m-t">
+                <div class="form-group">
+
+                    <div class=" control-input">
+                        <label for="company">工作单位:</label><input name="company" class="form-control" type="text"  id="company">
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="company_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    
+                    <div class=" control-input">
+                        <label for="display_name">真实姓名:</label><input name="display_name" class="form-control" type="text"  id="display_name">
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="display_name_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="control-input">
+                        <label for="username">手机号:</label><input name="username" type="text" class="form-control" id="username">
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="username_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix longform">
+
+                    <div class="control-code">
+                         <label for="validate">验证码:</label><input  name="validate" class="form-control" type="text" id="validate">
+                    </div>
+                    <div class="control-code-img">
+                        <img style="width:100px;height:34px;" title="点击刷新" src="/home/code" align="absbottom" onclick="this.src='/home/code/?a=1'" id="code"/>
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="validate_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix longform">
+
+                    <div class="control-code">
+                         <label for="codecode">短信验证码:</label><input name="code" class="form-control" type="text" id="codecode">
+                    </div>
+                    <div class="control-code-img">
+                        <button id="phonecode" class="btn btn-info" style="font-size:12px;width:100px;height:34px;">获取短信验证码</button>
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="code_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <button type="button" class="btn btn-success register"  id="login">注册</button>
+                </div>
+
+                <p class="text-muted text-center"><small>已经有账户了？</small><a href="/home/login">点此登录</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="/home/dist/jquery/jquery.js"></script>
+<script src="/home/dist/bootstrap/bootstrap.min.js"></script>
+<script src="/home/dist/sweetalert/sweetalert.min.js"></script> 
+<script type="text/javascript">
+    
+
+
+    //表单验证
+    var CY;
+    var DE;
+    var UE;
+    var VE;
+    var CE;
+
+    var company;
+    //验证工作单位
+    $("input[name='company']").blur(function(){
+        company = $(this).val();
+        if($(this).val() == ''){
+            CY = false;
+        } else {
+            $('#company_hint span').text('').css('color','');
+            $("input[name='company']").css('borderColor','');
+            CY = true;
+        }
+    });
+
+
+    var display_name;
+    //验证真实姓名
+    $("input[name='display_name']").blur(function(){
+        display_name = $(this).val();
+        if($(this).val() == ''){
+            DE = false;
+        } else if(!(/^[\u4e00-\u9fa5]+$/).test($(this).val())){
+            DE = false;
+        } else {
+            $('#display_name_hint span').text('').css('color','');
+            $("input[name='display_name']").css('borderColor','');
+            DE = true;
+        }
+    });
+
+    var username;
+    //验证手机号
+    $("input[name='username']").blur(function(){
+        if($(this).val() == ''){
+            UE = false;
+        } else if(!(/^1[345678]\d{9}$/).test($(this).val())){
+            UE = false;
+        } else {
+            
+            $.post('/home/checkUser',{username:$(this).val()},function(data){
+                if(data == '1'){
+                    $('#username_hint span').text('手机号已注册').css('color','red');
+                    UE = false;
+                } else {
+                    $('#username_hint span').text('').css('color','');
+                    $("input[name='username']").css('borderColor','');
+                    UE = true;
+                }
+            })
+        }
+    });
+
+
+    var validate;
+
+
+
+
+    //发送短信验证码
+    $('#phonecode').click(function(){
+          validate = $("input[name='validate']").val();
+
+        $.ajax({
+            async:false, 
+            url:'/home/checkCode',
+            type:'get',
+            data:{'validate':validate},
+            success:function(data){
+                if(data != '1'){
+                // $('#validate_hint span').text('验证码不正确').css('color','red');
+                VE = false;
+            } else {
+                $('#validate_hint span').text('').css('color','');
+                $("input[name='validate']").css('borderColor','');
+                VE = true;
+            }
+            
+            },
+           async:false, 
+        })
+         if(UE == true && VE == true){
+            username = $("input[name='username']").val();
+            $.post('/home/sendCode',{username:username},function(data){
+                if(data == '1'){
+                    $('#phonecode').attr('disabled','disabled');
+                    var num = 30;
+                    var info = setInterval(function(){
+                        $('#phonecode').text(num+'s');
+                        num--;
+                        if(num <= '0') {
+                            clearInterval(info);
+                            $('#phonecode').text('获取短信验证码').removeAttr('disabled');
+                        }
+                    },1000)
+                }
+            })
+        } else {
+            $('#code').attr('src','/home/code/?a=1');
+            alert('请输入正确的手机号和验证码');
+        }
+
+        return false;
+    });
+
+
+    var code;
+    //检测短信验证码
+    $("input[name='code']").blur(function(){
+        code = $(this).val();
+        $.post('/home/checkPhoneCode',{code:code},function(data){
+            if(data != '1'){
+                // $('#code_hint span').text('短信验证码不正确').css('color','red');
+                CE = false;
+            } else {
+                $('#code_hint span').text('').css('color','');
+                $("input[name='code']").css('borderColor','');
+                CE = true;
+            }
+        }) 
+    });
+
+
+
+    //表单提交事件
+    $(".register").eq(0).click(function(){
+        if(CY && DE && UE && VE && CE){
+            $.ajax({
+                url:'/home/doRegister',
+                type:'post',
+                data:{'display_name':display_name,'username':username,'company':company},
+                success:function(data){
+                    if(data==1){
+                        swal({
+                            title: "注册成功",
+                            text: "账户："+username+" 密码：123456",
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: "#b42a2e",
+                            confirmButtonText: "登录",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false
+                        }, function () {
+
+                            window.location.href='/home/login';
+                        });
+                    }else if(data==0){
+                        swal({
+                            title: "注册失败",
+                            text: "原因请看日志",
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: "#b42a2e",
+                            confirmButtonText: "确定",
+                            closeOnConfirm: false
+                        })
+                    }
+                }
+            })
+       }
+        
+        if(!CY){
+            $("input[name='company']").css('borderColor','red');
+            $('#company_hint span').text('请输入工作单位').css('color','red');
+        }
+
+        if(!DE){
+            $("input[name='display_name']").css('borderColor','red');
+            $('#display_name_hint span').text('请输入中文的名字').css('color','red');
+        }
+
+        if(!UE){
+            $("input[name='username']").css('borderColor','red');
+            $('#username_hint span').text('请输入正确的手机号').css('color','red');
+        }
+
+        if(!VE){
+            $("input[name='validate']").css('borderColor','red');
+            $('#validate_hint span').text('请输入正确的验证码').css('color','red');
+        }
+
+        if(!CE){
+            $("input[name='code']").css('borderColor','red');
+            $('#code_hint span').text('请输入正确的短信验证码').css('color','red');
+        }
+
+        $('#code').attr('src','/home/code/?a=1');
+        return false;
+    });
+
+
+
+
+</script> 
+</body>
+</html>
+

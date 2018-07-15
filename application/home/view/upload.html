@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>建工集团BIM族库平台</title>
+    <link href="/home/css/site.css" rel="stylesheet"/>
+    <link href="/home/dist/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/home/css/base.css" rel="stylesheet" />
+    <link href="/home/css/common.css" rel="stylesheet"/>
+    <link href="/home/css/index.css" rel="stylesheet"/>
+    <link href="/home/css/dropzone.css" rel="stylesheet"/>
+    <link href="/home/css/upload.css" rel="stylesheet" />
+
+
+</head>
+
+<body style="min-width:1300px; width:100%;float:none;margin:0;padding:0;display:block;">
+<div class="header">
+    <img src="/home/images/logo.png" class="logo"/>
+
+    <div class="main-nav">
+        <a href="/">
+            <div class="main-nav-cell">首页</div>
+        </a>
+        <a href="/home/userCenter">
+            <div class="main-nav-cell">个人中心</div>
+        </a>
+        {if session('homeUser.username')}
+        <div class="main-nav-cell">{:session('homeUser.username')}
+        
+        </div>
+         <a href="/home/logout">
+            <div class="main-nav-cell">退出</div>
+        </a>
+
+        {else}
+        <a href="/home/login">
+            <div class="main-nav-cell">登录</div>
+        </a>
+        {/if}
+
+    </div>
+    <div style="right:0;top:0;position:absolute;">
+    </div>
+</div>
+<div class="content-body">
+
+
+
+    <div style="width:90%;float:left;height:80px;">
+        <img src="/home/images/uploadtitle.png" style="height:30px;margin:40px 0 0 5%;" />
+    </div>
+    <div style="width:90%;min-height:610px;float:left;margin:10px 5%;border:1px solid #e0e0e0;float:left;">
+        <form action="/"
+              class="dropzone"
+              enctype="multipart/form-data"
+              id="my-dropzone"
+              method="post"></form>
+        <p style="width:100%;text-align:center;font-size:16px;color:#808080;">从我的电脑选择要上传的族库：按住CTRL可以上传多份族库</p>
+        <button type="submit" id="submit-all" class="btn btn-success" disabled="disabled"
+                style="width:150px;margin:20px auto;float:none;display:block;">
+            确定上传
+        </button>
+
+        <div style="width:80%;float:left;margin:10px 10%;border-top:1px solid #e0e0e0;padding:20px 0px 50px 10px">
+            <h4 style="font-family:'Microsoft YaHei'">温馨提示：</h4>
+            <p style="color: #808080;">1、您可以上传日常积累和自己制作的族库文件，每次可以上传多份，支持多种族库类型：RFA、Skp、dwg,dxf、fbx、obj</p>
+            <p style="color: #808080;">2、上传同一命名的文件，将进行提示，您可以根据提示重命名文件或进行删除。</p>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="footer">
+    <div style=" margin-top:25px;line-height:20px; text-align:center; padding-right:30px;">
+        <p style="width:100%; text-align:center;">北京建工BIM中心版权所有</p>
+        <p style="width:100%; text-align:center;">©2015 Powered by 北京六建技术研究院</p>
+        <p style="width:100%; text-align:center;">京ICP备13034117号</p>
+        <p style="width:100%; text-align:center;">BIM中心群:315340657&nbsp;&nbsp;&nbsp;&nbsp;电话:010-639287537&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="../族库操作手册.docx">操作手册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
+    </div>
+</div>
+
+</body>
+<script src="/home/dist/jquery/jquery.js"></script>
+<script src="/home/dist/bootstrap/bootstrap.min.js"></script>
+<script src="/home/js/dropzone.js"></script>
+<script src="/home/js/upload.js"></script>
+</html>

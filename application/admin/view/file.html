@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+     <link href="/admin/js/plugins/layer/skin/layer.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/admin/css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/custom/css/company-v.css">
+    <link rel="stylesheet" href="/admin/custom/css/zt-model.css">
+    <link rel="stylesheet" href="/admin/custom/css/organization-v.css">
+    <link href="/admin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <style>
+        .btnTitle b{
+            font-size: 16px;
+            margin: 0 4px;
+        }
+        #page{
+            text-align: center;
+        }
+        #page  > a, #page  > span {
+            background-color: #FFFFFF;
+            border: 1px solid #DDDDDD;
+            color: inherit;
+            display: inline-block;
+            line-height: 1.42857;
+            margin-left: -1px;
+            padding: 4px 10px;
+            position: relative;
+            text-decoration: none;
+        }
+         #page > span.active, #page > span:hover, #page > span:focus {
+            background-color: #f4f4f4;
+            border-color: #DDDDDD;
+            color: inherit;
+            cursor: default;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body id="allBody">
+    <div class=" animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <!--<h5>项目信息管理 / 组织结构管理</h5>-->
+                        <h5>系统信息管理 /查看构件信息</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container" style="padding-top:55px;overflow:hidden;">
+        <div style="min-height:34px;">
+           
+
+            <a type="button" class="btn btn-outline btn-default" id="open_all" style="">
+                全部展开
+            </a>
+            <a type="button" class="btn btn-outline btn-default"  id="close_all">
+                全部闭合
+            </a>
+        </div>
+
+        <div id="containerTree">
+
+        </div>
+    </div>
+    <div class="rightList ibox-title" style="display:block;background:transparent;border:none;">
+       
+    
+
+       <div class="ibox-tools" style="float: right;">
+            <a type="button"  style="width:95px;margin-right:5px;float: left;"  class="btn btn-outline btn-default" id="del_file">
+
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                批量删除
+            </a>
+            <form style="float: left;"> 
+                <input type="text" name="search" style="margin-right:10px;height:32px;padding:3px;" placeholder="请输入要检索的内容" {if $search}value="{$search}"{/if}>
+                <input type="hidden" name="category_id">
+                <button class="btn btn-info" type="submit">搜索</button>
+            </form>
+        </div>
+        <div class="table-responsive" style="clear:both;">
+            <table class="table table-bordered table-hover  table-condensed">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"/></th>
+                        <th>编号</th>
+                        <th>构件图片</th>
+                        <th>构件名称</th>
+                        <th>上传人</th>
+                        <th>上传时间</th>
+                        <th>上传插件</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                {foreach $file as $k=>$v}
+                    <tr>
+                        <td><input name="file_id[]" type="checkbox" value="{$v['id']}" /></td>
+                        <td>{$v['id']}</td>
+                        <td><img src="http://{$v['image_url']}" onerror="this.src='/home/images/chair.png'" style="height:50px;width:50px;"></td>
+                        <td>{$v['filename']}</td>
+                        <td>{$v['display_name']}</td>
+                        <td>{:date('Y-m-d H:i:s',$v['audit_upload_time'])}</td>
+                        <td>{$v['version']}</td>
+                        <td>
+                            <a type="button" id="delete" class="btn btn-success btn-xs del_item">删除</a>
+                        </td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="page" class="clearfix" style="margin: 0 auto;">
+           
+        </div>
+ 
+
+    </div>
+    
+    <input type="hidden" name="count_page" value="{if isset($count)}{$count}{/if}">
+    <input type="hidden" name="show_del" value="0">
+
+    <input type="hidden" name="show_del" value="1">
+
+    <button id="switch_person" data-toggle="modal" data-target="#movePerson" style="display: none;"></button>
+    <!--用于存放选中节点的信息-->
+    <input type="hidden" name="xtrue_id" value="">
+    <input type="hidden" name="xtype" value="">
+    <input type="hidden" name="xlevel" value="">
+    <input type="hidden" name="resetType">
+    <input type="hidden" name="resetId">
+    <input type="hidden" name="current_type">   
+    <input type="hidden" name="current_node_id">
+ 
+    <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- Peity -->
+    <script src="/admin/js/plugins/peity/jquery.peity.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/admin/js/content.js?v=1.0.0"></script>
+    <!-- iCheck -->
+    <script src="/admin/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Peity -->
+    <script src="/admin/js/demo/peity-demo.js"></script>
+    <!-- jsTree plugin javascript -->
+    <script type="text/javascript" src="/admin/js/plugins/jsTree/jstree.js"></script>
+      <script type="text/javascript" src="/admin/js/plugins/jsTree/jstree.min.js"></script>
+    <script type="text/javascript" src="/admin/custom/js/selfDefine.js"></script>
+    <script type="text/javascript" src="/admin/custom/js/organization.js"></script>
+    <!-- Sweet alert -->
+    <script src="/admin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/admin/js/jquery.pagination.js"></script>
+    <script src="/admin/js/plugins/layer/layer.min.js"></script>
+    <script src="/admin/js/file.js"></script>
+</body>
+</html>

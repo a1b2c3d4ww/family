@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="/home/dist/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/home/css/base.css" rel="stylesheet">
+    <link href="/home/css/register.css" rel="stylesheet">
+    <link href="/home/css/login.css" rel="stylesheet">
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
+</head>
+
+<body class="signin">
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div class="ibox-content">
+        <div class="back">
+            <img src="/home/images/logo.png" alt="" style="">
+        </div>
+        <div>
+            <form class="form-horizontal m-t" action="/home/dologin" method="post">
+
+                <div class="form-group clearfix">
+
+                    <div class="control-input">
+                        <label for="username">手机号:</label><input name="username" type="text" class="form-control" placeholder="请输入手机号" required="" id="username">
+                    </div>
+
+                </div>         
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="user_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+
+                    <div class="control-input">
+                        <label for="password">密码:</label><input name="password" id="password" class="form-control" type="password"  placeholder="请输入密码">
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="pwd_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+
+                    <div class="control-code">
+
+                        <label for="codecode">验证码:</label>
+
+                        <input  name="validate" class="form-control" type="text" placeholder="请输入验证码" id="codecode">
+
+                    </div>
+                    <div class="control-code-img">
+                        <img style="width:100px;height:34px;" title="点击刷新" src="/home/code" align="absbottom" onclick="this.src='/home/code/?a=1'" id="code"/>
+                    </div>
+                </div>
+                <div class="form-group wrong_title">
+                    <div class="">
+                        <span id="validate_hint" class="help-block m-b-none"><i class="fa fa-info-circle" style="display: none;"></i><span></span> </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="control-label" >
+                        <input id="checkbox2" type="checkbox" name="remember">
+                        <label for="checkbox2" class="checkbox2">
+                            记住密码
+                        </label>
+                    </div>
+                    <div class="control-href" >
+                        <a href="javascript:;">忘记密码</a>
+                        <a href="/home/register">注册新账户</a>
+                    </div>
+                </div>
+            
+            <div class="form-group clearfix">
+                <button type="" class="btn btn-success register" id="login" >立即登录</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="/home/dist/jquery/jquery.js"></script>
+<script src="/home/dist/bootstrap/bootstrap.min.js"></script>
+<!-- Sweet alert -->
+<!--<script src="/home/js/plugins/sweetalert/sweetalert.min.js"></script>-->
+</body>
+</html>
+<script type="text/javascript">
+    // var flag = false;
+        // var UPS;
+        var PPS ;
+        // var VPS ;
+    if (getCookie("uname") != null)
+    {
+        $('input[name=remember]').attr("checked", "checked");
+        $("input[name=username]").val(getCookie("uname"));
+        $("input[name=password]").val(getCookie("upwd"));
+    }
+    function Trim(str)
+    {
+         result = str.replace(/\s/g,"");
+         return result;
+     }
+    function getUser(){
+        if(!$('input[name=username]').val()){
+            $('input[name=username]').css("border-color","#ed5565");
+            $('#user_hint').children('span').text('请填写手机号').css('color','#ed5565');
+            $('#code').attr('src','/home/code/?a=1');
+        }else{
+            return $('input[name=username]').val();
+        }
+    }
+    function getPwd(){
+        if(!$('input[name=password]').val()){
+            $('input[name=password]').css("border-color","#ed5565");
+            $('#pwd_hint').children('span').text('请填密码').css('color','#ed5565');
+            $('#code').attr('src','/home/code/?a=1');
+        }else{
+            return $('input[name=password]').val();
+        }
+    }
+    function getValidate(){
+        if(!$('input[name=validate]').val()){
+            $('input[name=validate]').css("border-color","#ed5565");
+            $('#validate_hint').children('span').text('请填写验证码').css('color','#ed5565');
+        }else{
+            return $('input[name=validate]').val();
+        }
+    }
+    //写cookies
+    function setCookie(name, value) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+    //读取cookies
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg)) return unescape(arr[2]);
+        else return null;
+    }
+    //删除cookies
+    function delCookie(name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
+    $("input[name=username]").bind('input propertychange', function() {
+                  $("input[name=username]").css("border-color","#bac7d2");
+                    $('#user_hint').children('span').text('');
+
+    });
+    $("input[name=password]").bind('input propertychange', function() {
+                  $("input[name=password]").css("border-color","#bac7d2");
+                    $('#pwd_hint').children('span').text('');
+
+    });
+    $("input[name=validate]").bind('input propertychange', function() {
+         console.log($validate);
+                  $("input[name=validate]").css("border-color","#bac7d2");
+                    $('#validate_hint').children('span').text('');
+
+    });
+    $('#login').click(function(){
+        
+        $user = getUser();
+        $pwd = getPwd();
+        $validate = getValidate();
+       
+        if($user&&$pwd&&$validate){
+                //判断验证码是否正确
+                 $.ajax({
+                    url:'/home/check_validate',
+                    type:'post',
+                    data:{'validate':Trim($validate)},
+                    success:function(data){
+                        if(data==0){
+                          $('input[name=validate]').css("border-color","#ed5565");
+                          $('#validate_hint').children('span').text('验证码错误').css('color','#ed5565'); 
+                          $('#code').attr('src','/home/code/?a=1');
+                         } else if(data==1){
+                              $.ajax({
+                                 url:'/home/check_repeat_uname',
+                                 type:'post',
+                                 data:{'username':Trim($user)},
+                                 success:function(data){
+
+                                    if(data==0){
+                                        $('input[name=username]').css("border-color","#ed5565");
+                                        $('#user_hint').children('span').text('手机号不存在').css('color','#ed5565');
+                                        $('#code').attr('src','/home/code/?a=1');
+                                    }else if(data==1){
+                                         $.ajax({
+                                            url:'/home/check_password',
+                                            type:'post',
+                                            data:{'username':Trim($user),'pwd':Trim($pwd)},
+                                            success:function(data){
+                                                if(data==0){
+                                                    $('input[name=password]').css("border-color","#ed5565");
+                                                    $('#pwd_hint').children('span').text('账号或密码错误').css('color','#ed5565');
+                                                    $('#code').attr('src','/home/code/?a=1');
+                                                     }else{
+                                                             PPS = true;
+                                                        }
+                                            },
+                                           async:false, 
+                                        });
+                                    }
+                                 },
+                                 async:false,
+                                 });
+                         }
+                    },
+                    async:false,
+
+                 });
+  
+                 // console.log(PPS);
+
+                 if(PPS){
+                    return true;
+                 }
+                    return false;
+                
+              
+        }else{
+              return false;
+        }
+    });
+
+
+   
+  $('input[name=remember]').change(function () {
+        if ($('input[name=remember]').prop("checked")) {
+            setCookie("uname", $("input[name=username]").val());
+            setCookie("upwd", $("input[name=password]").val());   
+        }
+         else {
+            delCookie("uname");
+            delCookie("upwd");
+         }
+    
+   });
+</script>

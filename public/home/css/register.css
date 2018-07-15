@@ -1,0 +1,182 @@
+body.signin {
+    background: #18c8f6;
+    height: auto;
+    background: url(../images/login_back.png) no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: rgba(255,255,255,.95);
+}
+.loginscreen.middle-box {
+    width:390px !important;
+    max-width: 3900px !important;
+    height:800px !important;
+    padding-top:140px !important;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.ibox-content{
+    padding:0px;
+    /*height:404px;*/
+    border-radius:10px;
+    border-top:none;
+    background-color: #ffffff;
+    color: inherit;
+    border-color: #e7eaec;
+    -webkit-border-image: none;
+    -o-border-image: none;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+}
+
+.back{
+    height:90px;
+    /*line-height:110px;*/
+    background:#3366cc;
+    border-radius:10px 10px 0 0 ;
+    text-align: center;
+}
+.back img{
+    margin-top: 20px;
+    vertical-align: top;
+    height: 60%;
+}
+.back p{
+    line-height: 30px;
+}
+.m-t{
+    margin-top:30px;
+    padding-bottom: 2px;
+    padding-right: 20px;
+}
+.control-label{
+    width:78px;
+    color:#333;
+    font-weight:400;
+    font-size:13px;
+    float:left;
+}
+.control-code{
+    width:145px;
+    float:left;
+    margin-right:10px;
+}
+.control-code-img,.control-code-int{
+    width:100px;
+    float:left;
+}
+.form-horizontal .form-group{
+    width:300px;
+    margin:0 auto;
+    margin-bottom:3px;
+    color:#555;
+
+}
+.wrong_title{
+    height:17px;
+    text-align: left;
+    font-size: 12px;
+}
+.help-block{
+    margin-top:0px;
+}
+.form-horizontal .form-group input:focus{
+    border-color:#3366cc !important;
+}
+input,button{
+    height:35px !important;
+    border-radius:3px !important;
+}
+.form-group label{
+    text-align:left !important;
+}
+
+.register{
+    width:260px;
+    margin:0 auto;
+    margin-top:10px;
+    border-radius:20px !important;
+    background:#3366cc;
+    color:#fff;
+    outline: none;
+    border-color: #3366cc;
+}
+#checkbox2{
+    float: left;
+    margin: 0;
+}
+.checkbox2{
+    float: left;
+    height: auto !important;
+    margin-bottom: 0;
+    margin-left: 5px;
+    color: #333;
+    font-weight: 400;
+}
+.control-href{
+    float:right;
+    padding-top: 4px;
+}
+.control-href a{
+    color:#333;
+}
+.control-href a:hover{
+    color:#337ab7;
+}
+.control-href a:last-of-type{
+    border-left: 1px solid #333;
+    padding-left: 4px;
+    margin-left: 2px;
+}
+.form-control, .single-line {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #cfd0d2;
+    border-radius: 1px;
+    color: inherit;
+    display: inline-block;
+    padding: 6px 12px;
+    -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 66%;
+    font-size: 14px;
+    margin-left: 10px;
+    float: left;
+}
+input, button {
+    height: 35px !important;
+    border-radius: 3px !important;
+    outline: none;
+}
+.btn-success:hover, .btn-success:focus,.btn-success:visited, .btn-success.focus, .btn-success:active, .btn-success.active, .open>.dropdown-toggle.btn-success{
+    outline: none;
+}
+input[type=radio], input[type=checkbox]{
+    height: 20px!important;
+}
+.form-horizontal .form-group{
+    width: 320px;
+    /*text-align: left;*/
+}
+.form-horizontal .form-group.longform .control-code{
+    width: 200px;
+}
+.form-horizontal .form-group.longform .control-code .form-control{
+    width: 100px; 
+}
+.form-group label{
+    font-size: 14px;
+    font-weight: 400;
+    width: 90px;
+    text-align: right!important;
+    float: left;
+    line-height: 35px;
+}
+.help-block>span{
+    margin-left: 120px;
+}
+#phonecode{
+    padding: 0;
+}

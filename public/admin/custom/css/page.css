@@ -1,0 +1,26 @@
+.page span,.page a{
+    padding:6px 6px!important;
+    border:1px solid #1c84c6;
+    margin-right:3px!important;
+    color:#1c84c6!important;
+    float: none!important;
+}
+.page a.disable{
+    color: #999!important;
+    border-color: #cecece;
+    cursor: default;
+}
+.page a#current_page_num,.page a#page_num{
+    border: none;
+}
+.page a:hover{
+    color:#003399;
+    border-color:#003399;
+}
+.page a:active{
+    color:blue;
+}
+.page{
+    float:right;
+    margin-right:10px;
+}

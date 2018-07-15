@@ -1,0 +1,26 @@
+﻿/**{border:0;margin:0;  padding:0;}
+body{background:#444;font-family:Tahoma; margin:0 auto; font-size:12px}
+ul{display:block;margin:0;padding:0;list-style:none;}
+li{display:block;margin:0;padding:0;list-style: none;}
+img{border:0;}
+dl,dt,dd,span{margin:0;padding:0;display:block;}
+a,a:focus{text-decoration:none;color:#000;outline:none;blr:expression(this.onFocus=this.blur());}
+a:hover{color:#00a4ac;text-decoration:none;}
+table{border-collapse:collapse;border-spacing: 0;}
+cite{font-style:normal;}
+h2{font-weight:normal;}
+::-moz-selection{color:#fff;color:rgba(255,255,255,0.85);background:#03a8b1;}
+::selection{color:#fff;color:rgba(255,255,255,0.85);background:#03a8b1;}
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+h2{font-size:12px}*/
+/*clearboth*/
+.clearfix:after{content:'.';display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{*zoom:1;}
+.clearfix .clear{_height:0px;}
+/*gotop*/
+.cbbfixed {position: fixed;right: 10px;transition: bottom ease .3s;bottom: 125px;z-index: 3;cursor:pointer;}
+.cbbfixed .cbbtn {width: 40px;height: 60px;display: block;background-color: #2C3B42;}
+.cbbfixed .gotop {transition: background-color ease .3s;margin-top: 1px;}
+.cbbfixed .gotop .up-icon{float:left;margin:14px 0 0 9px;width:23px;height:12px; }
+.cbbfixed .gotop:hover {background-color:#808080;}
+.gotop p{ color:#fff;text-align: center; }
